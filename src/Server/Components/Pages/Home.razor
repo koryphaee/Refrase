@@ -1,0 +1,122 @@
+﻿@page "/"
+@using Microsoft.EntityFrameworkCore
+@using Refrase.Model
+@using Refrase.Model.Videos
+
+@inject IDbContextFactory<RefraseContext> ContextFactory
+
+<span>@DateTime.Now.ToShortDateString() @DateTime.Now.ToLongTimeString()</span>
+
+<h1>
+    <a href="/swagger">Swagger</a>
+</h1>
+
+<h1>queue</h1>
+
+@if (!queue.Any())
+{
+    <span>empty</span>
+}
+
+@foreach (Video video in queue)
+{
+    int hashedCount = video.Frames.Count(f => f.Hash != null);
+    bool metadataImported = video.Status >= AnalysisStatus.MetadataImported;
+    bool framesCreated = video.Status >= AnalysisStatus.FramesCreated;
+    bool framesHashed = video.Status >= AnalysisStatus.FramesHashed;
+
+    <fieldset>
+        @if (string.IsNullOrEmpty(video.Url))
+        {
+            <legend>@video.Category: @video.Name</legend>
+        }
+        else
+        {
+            <legend>
+                <a href="@video.Url" target="_blank">@video.Category: @video.Name</a>
+            </legend>
+        }
+
+        <label>
+            <input type="checkbox" checked="@metadataImported" readonly/>
+            <span>metadata imported</span>
+        </label>
+        @if (metadataImported)
+        {
+            <span> - resolution: @video.Width x @video.Height</span>
+            <span>duration: @video.Duration.ToString("hh':'mm':'ss"),</span>
+            <span>frame rate: @video.FrameRate</span>
+        }
+        <br/>
+
+        <label>
+            <input type="checkbox" checked="@framesCreated" readonly/>
+            <span>frames created</span>
+        </label>
+        @if (framesCreated)
+        {
+            <span> - frame count: @video.Frames.Count</span>
+        }
+        <br/>
+
+        <label>
+            <input type="checkbox" checked="@framesHashed" readonly/>
+            <span>frames hashed</span>
+        </label>
+        @if (framesCreated)
+        {
+            <span> - </span>
+            <progress style="width: 500px;" value="@hashedCount" max="@video.Frames.Count"></progress>
+            <span>@hashedCount / @video.Frames.Count</span>
+        }
+        <br/>
+
+    </fieldset>
+    <br/>
+}
+
+<h1>completed</h1>
+
+@foreach (Video video in completed)
+{
+    <fieldset>
+        @if (string.IsNullOrEmpty(video.Url))
+        {
+            <legend>@video.Category: @video.Name</legend>
+        }
+        else
+        {
+            <legend>
+                <a href="@video.Url" target="_blank">@video.Category: @video.Name</a>
+            </legend>
+        }
+
+        <pre>resolution:  @video.Width x @video.Height</pre>
+        <div>duration:    @video.Duration.ToString("hh':'mm':'ss")</div>
+        <div>frame rate:  @video.FrameRate</div>
+        <div>frame count: @video.FrameCount</div>
+    </fieldset>
+    <br/>
+}
+
+@code
+{
+    private Video[] queue = [];
+    private Video[] completed = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await using RefraseContext context = await ContextFactory.CreateDbContextAsync();
+
+        queue = await context.Videos
+            .Where(v => v.Status != AnalysisStatus.Completed)
+            .OrderBy(v => v.Imported)
+            .Include(v => v.Frames)
+            .ToArrayAsync();
+
+        completed = await context.Videos
+            .Where(v => v.Status == AnalysisStatus.Completed)
+            .OrderByDescending(v => v.Imported)
+            .ToArrayAsync();
+    }
+}

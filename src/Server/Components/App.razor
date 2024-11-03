@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Refrase</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <base href="/"/>
+    <HeadOutlet/>
+    <style>
+        html {
+            background-color: #333333;
+            color: springgreen;
+            font-family: Roboto, monospace;
+            font-size: 15pt;
+        }
+
+        a {
+            color:  springgreen;
+        }
+
+        a:visited {
+            color: forestgreen;
+        }
+    </style>
+    <script>
+        setInterval(() => {
+            location.reload()
+        }, 1000)
+    </script>
+</head>
+
+<body>
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData"/>
+        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
+    </Found>
+    <NotFound>
+        <h1>404</h1>
+    </NotFound>
+</Router>
+<script src="_framework/blazor.web.js"></script>
+</body>
+
+</html>

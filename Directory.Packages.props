@@ -1,0 +1,25 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageVersion Include="CoenM.ImageSharp.ImageHash" Version="1.3.6" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
+    <PackageVersion Include="Flurl" Version="4.0.0" />
+    <PackageVersion Include="NUnit" Version="4.1" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageVersion Include="EFCore.NamingConventions" Version="8.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageVersion Include="CliWrap" Version="3.6.6" />
+    <PackageVersion Include="Flurl.Http" Version="4.0.2" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageVersion Include="Strongly" Version="1.5.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.9.0" />
+  </ItemGroup>
+</Project>

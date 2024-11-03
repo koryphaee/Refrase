@@ -1,0 +1,12 @@
+services:
+  refrase:
+    build:
+      context: .
+      dockerfile: src/Server/Dockerfile
+    ports:
+      - ${REFRASE_PORT}:80
+    volumes:
+      - ${REFRASE_DATA_PATH}:/data
+    environment:
+      - PUID=${REFRASE_USER_ID}
+      - PGID=${REFRASE_GROUP_ID}
