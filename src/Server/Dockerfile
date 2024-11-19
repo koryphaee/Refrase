@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-noble AS base
 EXPOSE 80
 RUN apt-get update && apt-get install -y ffmpeg
 
