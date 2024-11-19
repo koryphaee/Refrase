@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Options;
 using Refrase.Core.Paths;
 
 namespace Refrase.Core.Tests.Helpers;
@@ -7,16 +7,12 @@ public static class PathFaker
 {
 	public static DataPaths Fake()
 	{
-		Dictionary<string, string?> values = new()
+		var refraseOptions = new RefraseOptions
 		{
-			{ Constants.DataDirectory, "." }
+			DataDirectory = "."
 		};
-
-		IConfigurationRoot configuration = new ConfigurationBuilder()
-			.AddInMemoryCollection(values)
-			.Build();
-
-		var mappedPaths = new MappedPaths(configuration);
+		IOptions<RefraseOptions> options = new OptionsWrapper<RefraseOptions>(refraseOptions);
+		var mappedPaths = new MappedPaths(options);
 		return new DataPaths(mappedPaths);
 	}
 }

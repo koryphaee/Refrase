@@ -1,8 +1,8 @@
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Refrase.Core.Paths;
 
-public class MappedPaths(IConfiguration configuration)
+public class MappedPaths(IOptions<RefraseOptions> options)
 {
-	public string Data => configuration[Constants.DataDirectory] ?? throw new InvalidOperationException("No data path mapped!");
+	public string Data => options.Value.DataDirectory ?? throw new InvalidOperationException("No data path mapped!");
 }

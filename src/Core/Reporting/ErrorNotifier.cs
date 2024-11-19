@@ -2,22 +2,23 @@
 using Flurl.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Refrase.Core.Reporting;
 
 public class ErrorNotifier(
-	IConfiguration configuration,
+	IOptions<RefraseOptions> options,
 	ILogger<ErrorNotifier> logger)
 {
     public async Task Notify(Exception exception, CancellationToken cancellationToken)
     {
-        if (configuration["PushoverToken"] is not string token)
+        if (options.Value.PushoverToken is not string token)
         {
             logger.LogWarning("Unable to send notification because no token was provided");
             return;
         }
 
-        if (configuration["PushoverUser"] is not string user)
+        if (options.Value.PushoverUser is not string user)
         {
             logger.LogWarning("Unable to send notification because no user was provided");
             return;

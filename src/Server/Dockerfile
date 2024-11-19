@@ -10,4 +10,6 @@ RUN dotnet publish --configuration Release --output /app/publish /p:UseAppHost=f
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT exec setpriv --reuid=${PUID} --regid=${PGID} --clear-groups dotnet Refrase.Server.dll data=/data urls=http://+:80
+ENV Refrase__DataDirectory=/data
+ENV AspNetCore_Urls=http://+:80
+ENTRYPOINT exec setpriv --reuid=${PUID} --regid=${PGID} --clear-groups dotnet Refrase.Server.dll
