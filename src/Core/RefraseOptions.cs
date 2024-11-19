@@ -9,4 +9,6 @@ public class RefraseOptions
 	public string? PushoverUser { get; set; }
 
 	public string? PushoverToken { get; set; }
+
+	public int FfmpegThreads { get; set; }
 }

@@ -1,6 +1,7 @@
 ﻿using CliWrap;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Refrase.Core.Hashing;
 using Refrase.Core.Paths;
 using Refrase.Model;
@@ -13,7 +14,8 @@ public class FrameHashImporter(
 	ILogger<FrameHashImporter> logger,
 	IDbContextFactory<RefraseContext> contextFactory,
 	DataPaths dataPaths,
-	ImageHasher imageHasher)
+	ImageHasher imageHasher,
+	IOptions<RefraseOptions> options)
 {
 	public async Task Import(VideoId videoId, CancellationToken cancellationToken)
 	{
@@ -57,6 +59,7 @@ public class FrameHashImporter(
 				.Add("-i").Add(videoPath)
 				.Add("-start_number").Add(first.Index)
 				.Add("-vframes").Add(frames.Length)
+				.Add("-threads").Add(options.Value.FfmpegThreads)
 				.Add(framePattern))
 			.Run(logger, cancellationToken);
 

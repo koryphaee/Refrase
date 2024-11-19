@@ -1,6 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
+using Refrase.Core;
 using Refrase.Core.Frames;
 using Refrase.Core.Hashing;
 using Refrase.Core.Paths;
@@ -13,13 +15,15 @@ namespace Refrase.Benchmarks;
 [InProcess]
 public class FrameHashImporterBenchmark
 {
+	private readonly IOptions<RefraseOptions> options;
 	private readonly DataPaths dataPaths;
 	private TestDatabase database = null!;
 	private FrameHashImporter importer = null!;
 
 	public FrameHashImporterBenchmark()
 	{
-		dataPaths = PathFaker.Fake();
+		options = InstanceFaker.FakeOptions();
+		dataPaths = InstanceFaker.FakeDataPaths(options);
 		File.Copy(new ResourcePaths().Video, dataPaths.Video(new VideoId(1)).Video, true);
 	}
 
@@ -27,7 +31,7 @@ public class FrameHashImporterBenchmark
 	public async Task Setup()
 	{
 		database = await TestDatabase.Create();
-		importer = new FrameHashImporter(NullLogger<FrameHashImporter>.Instance, database, dataPaths, new ImageHasher());
+		importer = new FrameHashImporter(NullLogger<FrameHashImporter>.Instance, database, dataPaths, new ImageHasher(), options);
 	}
 
 	[IterationSetup]

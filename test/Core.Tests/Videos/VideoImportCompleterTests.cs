@@ -15,7 +15,7 @@ public class VideoImportCompleterTests
 	public async Task Test()
 	{
 		await using TestDatabase database = await TestDatabase.Create();
-		DataPaths dataPaths = PathFaker.Fake();
+		DataPaths dataPaths = InstanceFaker.FakeDataPaths();
 		var completer = new VideoImportCompleter(database, dataPaths);
 
 		await using RefraseContext context = database.CreateDbContext();

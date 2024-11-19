@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Refrase.Core.Frames;
 using Refrase.Core.Hashing;
@@ -20,11 +21,12 @@ public class FrameHashImporterTests
 		await using var database = await TestDatabase.Create();
 		VideoId videoId = await CreateData(database);
 
-		DataPaths dataPaths = PathFaker.Fake();
+		IOptions<RefraseOptions> options = InstanceFaker.FakeOptions();
+		DataPaths dataPaths = InstanceFaker.FakeDataPaths(options);
 		File.Copy(new ResourcePaths().Video, dataPaths.Video(videoId).Video, true);
 
 		var imageHasher = new ImageHasher();
-		var importer = new FrameHashImporter(NullLogger<FrameHashImporter>.Instance, database, dataPaths, imageHasher);
+		var importer = new FrameHashImporter(NullLogger<FrameHashImporter>.Instance, database, dataPaths, imageHasher, options);
 
 		await importer.Import(videoId, default);
 

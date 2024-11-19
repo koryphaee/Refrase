@@ -15,7 +15,7 @@ public class VideoMetadataImporterTests
 	[Test]
 	public async Task Test()
 	{
-		DataPaths dataPaths = PathFaker.Fake();
+		DataPaths dataPaths = InstanceFaker.FakeDataPaths();
 		var parser = new VideoMetadataParser();
 		var reader = new VideoMetadataReader(NullLogger<VideoMetadataReader>.Instance, parser);
 		await using var database = await TestDatabase.Create();

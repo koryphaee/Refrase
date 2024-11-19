@@ -18,7 +18,7 @@ public class FrameMetadataImporterTests
 	[Test]
 	public async Task Test()
 	{
-		DataPaths dataPaths = PathFaker.Fake();
+		DataPaths dataPaths = InstanceFaker.FakeDataPaths();
 		var parser = new FrameMetadataParser();
 		var creator = new ExtraFrameCreator();
 		var reader = new FrameMetadataReader(NullLogger<FrameMetadataReader>.Instance, parser, creator);
