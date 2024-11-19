@@ -24,9 +24,25 @@
         }
     </style>
     <script>
-        setInterval(() => {
-            location.reload()
-        }, 1000)
+        setInterval(refresh, 1000)
+
+        async function refresh() {
+            if (await backendOnline()) {
+                document.title = "Refrase"
+                location.reload()
+            } else {
+                document.title = "Refrase - offline"
+            }
+        }
+
+        async function backendOnline() {
+            try {
+                const response = await fetch("/api/health")
+                return response.status === 200
+            } catch {
+                return false
+            }
+        }
     </script>
 </head>
 
