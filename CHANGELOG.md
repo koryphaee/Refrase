@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/koryphaee/Refrase/compare/v1.0.1...v1.1.0) (2024-11-19)
+
+
+### Bug Fixes
+
+* **frontend:** frontend survives backend outage ([1ae8b9b](https://github.com/koryphaee/Refrase/commit/1ae8b9bc2a3c2a749eb889e6882fab34f4008bc8))
+* **frontend:** increased refresh interval ([f2dba4f](https://github.com/koryphaee/Refrase/commit/f2dba4fd0bc90f6ec1eff3c329a1a514e5febc63))
+* **logging:** logging all requests ([a2e1828](https://github.com/koryphaee/Refrase/commit/a2e18286a784d9baada62a8638e878b744759fb5))
+
+
+### Features
+
+* **ffmpeg:** added ffmpeg threads options ([2aead1e](https://github.com/koryphaee/Refrase/commit/2aead1e82e3030b0ebbf6e7f20311e6f3993c5d6))
+
 ## [1.0.1](https://github.com/koryphaee/Refrase/compare/v1.0.0...v1.0.1) (2024-11-19)
 
 
