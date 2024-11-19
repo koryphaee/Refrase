@@ -26,16 +26,13 @@ public static class Extensions
 
 	private static void MapLogging(this WebApplication app)
 	{
-		app.UseWhen(c => c.Request.Path.StartsWithSegments("/api"), builder =>
+		app.Use(async (context, next) =>
 		{
-			builder.Use(async (context, next) =>
-			{
-				long start = Stopwatch.GetTimestamp();
-				await next(context);
-				TimeSpan elapsed = Stopwatch.GetElapsedTime(start);
-				app.Logger.LogInformation("{method} to {path} returned {statusCode} after {duration:F2} ms",
-					context.Request.Method, context.Request.Path, context.Response.StatusCode, elapsed.TotalMilliseconds);
-			});
+			long start = Stopwatch.GetTimestamp();
+			await next(context);
+			TimeSpan elapsed = Stopwatch.GetElapsedTime(start);
+			app.Logger.LogInformation("{method} to {path} returned {statusCode} after {duration:F2} ms",
+				context.Request.Method, context.Request.Path, context.Response.StatusCode, elapsed.TotalMilliseconds);
 		});
 	}
 
