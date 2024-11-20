@@ -44,6 +44,6 @@ public static class Extensions
 			.WithFormOptions(multipartBodyLengthLimit: 10L * 1024 * 1024 * 1024)
 			.DisableAntiforgery();
 
-		app.MapPost("/api/frame/search", (SearchFrameHandler handler, Stream body, CancellationToken cancellationToken) => handler.Handle(body, cancellationToken));
+		app.MapPost("/api/frame/search", (SearchFrameHandler handler, IFormFile frame, CancellationToken cancellationToken) => handler.Handle(frame, cancellationToken));
 	}
 }

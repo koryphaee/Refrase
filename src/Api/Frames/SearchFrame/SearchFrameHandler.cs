@@ -15,9 +15,9 @@ public class SearchFrameHandler(
 	RefraseContext context,
 	DataPaths dataPaths)
 {
-	public async Task<Results<Ok<SearchFrameResponse>, BadRequest>> Handle(Stream body, CancellationToken cancellationToken)
+	public async Task<Results<Ok<SearchFrameResponse>, BadRequest>> Handle(IFormFile frame, CancellationToken cancellationToken)
 	{
-		string file = await SaveFile(body, cancellationToken);
+		string file = await SaveFile(frame, cancellationToken);
 
 		try
 		{
@@ -32,13 +32,13 @@ public class SearchFrameHandler(
 		}
 	}
 
-	private async Task<string> SaveFile(Stream body, CancellationToken cancellationToken)
+	private async Task<string> SaveFile(IFormFile frame, CancellationToken cancellationToken)
 	{
 		Guid guid = Guid.NewGuid();
 		string path = dataPaths.Frame.Image(guid);
 		logger.LogDebug("Writing image to file {path}", path);
 		await using FileStream target = File.OpenWrite(path);
-		await body.CopyToAsync(target, cancellationToken);
+		await frame.CopyToAsync(target, cancellationToken);
 		return path;
 	}
 
