@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @using Microsoft.EntityFrameworkCore
 @using Refrase.Model
 @using Refrase.Model.Videos
@@ -18,9 +19,8 @@
     <span>empty</span>
 }
 
-@foreach (Video video in queue)
+@foreach (QueuedVideo video in queue)
 {
-    int hashedCount = video.Frames.Count(f => f.Hash != null);
     bool metadataImported = video.Status >= AnalysisStatus.MetadataImported;
     bool framesCreated = video.Status >= AnalysisStatus.FramesCreated;
     bool framesHashed = video.Status >= AnalysisStatus.FramesHashed;
@@ -55,7 +55,7 @@
         </label>
         @if (framesCreated)
         {
-            <span> - frame count: @video.Frames.Count</span>
+            <span> - frame count: @video.FrameCount</span>
         }
         <br/>
 
@@ -66,8 +66,8 @@
         @if (framesCreated)
         {
             <span> - </span>
-            <progress style="width: 500px;" value="@hashedCount" max="@video.Frames.Count"></progress>
-            <span>@hashedCount / @video.Frames.Count</span>
+            <progress style="width: 500px;" value="@video.HashedFrameCount" max="@video.FrameCount"></progress>
+            <span>@video.HashedFrameCount / @video.FrameCount</span>
         }
         <br/>
 
@@ -77,7 +77,7 @@
 
 <h1>completed</h1>
 
-@foreach (Video video in completed)
+@foreach (CompletedVideo video in completed)
 {
     <fieldset>
         @if (string.IsNullOrEmpty(video.Url))
@@ -91,7 +91,7 @@
             </legend>
         }
 
-        <pre>resolution:  @video.Width x @video.Height</pre>
+        <div>resolution:  @video.Width x @video.Height</div>
         <div>duration:    @video.Duration.ToString("hh':'mm':'ss")</div>
         <div>frame rate:  @video.FrameRate</div>
         <div>frame count: @video.FrameCount</div>
@@ -101,8 +101,32 @@
 
 @code
 {
-    private Video[] queue = [];
-    private Video[] completed = [];
+    private record QueuedVideo(
+        string Name,
+        string Category,
+        string? Url,
+        AnalysisStatus Status,
+        int Width,
+        int Height,
+        int FrameCount,
+        float FrameRate,
+        TimeSpan Duration,
+        int HashedFrameCount
+    );
+
+    private record CompletedVideo(
+        string Name,
+        string Category,
+        string? Url,
+        int Width,
+        int Height,
+        int FrameCount,
+        float FrameRate,
+        TimeSpan Duration
+    );
+
+    private QueuedVideo[] queue = [];
+    private CompletedVideo[] completed = [];
 
     protected override async Task OnInitializedAsync()
     {
@@ -111,12 +135,31 @@
         queue = await context.Videos
             .Where(v => v.Status != AnalysisStatus.Completed)
             .OrderBy(v => v.Imported)
-            .Include(v => v.Frames)
+            .Select(v => new QueuedVideo(
+                v.Name,
+                v.Category,
+                v.Url,
+                v.Status,
+                v.Width,
+                v.Height,
+                v.FrameCount,
+                v.FrameRate,
+                v.Duration,
+                v.Frames.Count(f => f.Hash != null)))
             .ToArrayAsync();
 
         completed = await context.Videos
             .Where(v => v.Status == AnalysisStatus.Completed)
             .OrderByDescending(v => v.Imported)
+            .Select(v => new CompletedVideo(
+                v.Name,
+                v.Category,
+                v.Url,
+                v.Width,
+                v.Height,
+                v.FrameCount,
+                v.FrameRate,
+                v.Duration))
             .ToArrayAsync();
     }
 }
