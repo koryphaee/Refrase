@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/koryphaee/Refrase/compare/v1.1.0...v1.2.0) (2024-11-20)
+
+
+### Bug Fixes
+
+* **web-ui:** sped up queue view ([ed75695](https://github.com/koryphaee/Refrase/commit/ed75695d3656ad9574f06dc42c74396a7b3ad1ee))
+
+
+### Features
+
+* **videos:** added analyzed timestamp ([470c77b](https://github.com/koryphaee/Refrase/commit/470c77b82a706f8cdf6597851a8b77ba55b8652d))
+
 # [1.1.0](https://github.com/koryphaee/Refrase/compare/v1.0.1...v1.1.0) (2024-11-19)
 
 
