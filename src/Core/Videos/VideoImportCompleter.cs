@@ -21,6 +21,7 @@ public class VideoImportCompleter(
 		Directory.Delete(videoDirectory, true);
 
 		video.Status = AnalysisStatus.Completed;
+		video.Analyzed = DateTime.UtcNow;
 		await context.SaveChangesAsync(cancellationToken);
 	}
 }

@@ -12,6 +12,8 @@ public class Video
 
 	public required DateTime Imported { get; set; }
 
+	public DateTime? Analyzed { get; set; }
+
 	public string? Url { get; set; }
 
 	public AnalysisStatus Status { get; set; }

@@ -6,7 +6,7 @@
 
 @inject IDbContextFactory<RefraseContext> ContextFactory
 
-<span>@DateTime.Now.ToShortDateString() @DateTime.Now.ToLongTimeString()</span>
+<span>@DateTime.Now.ToString("G")</span>
 
 <h1>
     <a href="/swagger">Swagger</a>
@@ -37,6 +37,7 @@
             </legend>
         }
 
+        <div>imported: @video.Imported.ToLocalTime().ToString("G")</div>
         <label>
             <input type="checkbox" checked="@metadataImported" readonly/>
             <span>metadata imported</span>
@@ -95,6 +96,7 @@
         <div>duration:    @video.Duration.ToString("hh':'mm':'ss")</div>
         <div>frame rate:  @video.FrameRate</div>
         <div>frame count: @video.FrameCount</div>
+        <div>analyzed: @video.Analyzed.ToLocalTime().ToString("G")</div>
     </fieldset>
     <br/>
 }
@@ -111,7 +113,8 @@
         int FrameCount,
         float FrameRate,
         TimeSpan Duration,
-        int HashedFrameCount
+        int HashedFrameCount,
+        DateTime Imported
     );
 
     private record CompletedVideo(
@@ -122,7 +125,8 @@
         int Height,
         int FrameCount,
         float FrameRate,
-        TimeSpan Duration
+        TimeSpan Duration,
+        DateTime Analyzed
     );
 
     private QueuedVideo[] queue = [];
@@ -145,7 +149,8 @@
                 v.FrameCount,
                 v.FrameRate,
                 v.Duration,
-                v.Frames.Count(f => f.Hash != null)))
+                v.Frames.Count(f => f.Hash != null),
+                v.Imported))
             .ToArrayAsync();
 
         completed = await context.Videos
@@ -159,7 +164,8 @@
                 v.Height,
                 v.FrameCount,
                 v.FrameRate,
-                v.Duration))
+                v.Duration,
+                v.Analyzed!.Value))
             .ToArrayAsync();
     }
 }

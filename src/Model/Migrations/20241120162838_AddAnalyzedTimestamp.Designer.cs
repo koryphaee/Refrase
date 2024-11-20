@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Refrase.Model;
 
@@ -10,9 +11,11 @@ using Refrase.Model;
 namespace Refrase.Model.Migrations
 {
     [DbContext(typeof(RefraseContext))]
-    partial class RefraseContextModelSnapshot : ModelSnapshot
+    [Migration("20241120162838_AddAnalyzedTimestamp")]
+    partial class AddAnalyzedTimestamp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
