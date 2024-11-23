@@ -26,8 +26,7 @@ public static class Extensions
 
 		services
 			.AddSingleton<FrameCache>()
-			.AddSingleton<FrameHashImporter>()
-			.AddSingleton<ExtraFrameCreator>();
+			.AddSingleton<FrameHashImporter>();
 
 		services
 			.AddSingleton<HashComparer>()

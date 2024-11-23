@@ -20,8 +20,7 @@ public class FrameMetadataImporterTests
 	{
 		DataPaths dataPaths = InstanceFaker.FakeDataPaths();
 		var parser = new FrameMetadataParser();
-		var creator = new ExtraFrameCreator();
-		var reader = new FrameMetadataReader(NullLogger<FrameMetadataReader>.Instance, parser, creator);
+		var reader = new FrameMetadataReader(NullLogger<FrameMetadataReader>.Instance, parser);
 		await using var database = await TestDatabase.Create();
 		var importer = new FrameMetadataImporter(reader, database, dataPaths);
 

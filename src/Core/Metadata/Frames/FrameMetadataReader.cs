@@ -8,15 +8,13 @@ namespace Refrase.Core.Metadata.Frames;
 
 internal class FrameMetadataReader(
 	ILogger<FrameMetadataReader> logger,
-	FrameMetadataParser frameMetadataParser,
-	ExtraFrameCreator extraFrameCreator)
+	FrameMetadataParser frameMetadataParser)
 {
 	public async Task<FrameMetadata[]> ExtractMetadata(string path, CancellationToken cancellationToken)
 	{
 		string json = await RunCommand(path, cancellationToken);
 		FfprobeFramesMetadata metadata = Deserialize(json);
-		FrameMetadata[] frames = frameMetadataParser.Parse(metadata);
-		return extraFrameCreator.CreateExtraFrames(frames);
+		return frameMetadataParser.Parse(metadata);
 	}
 
 	private async Task<string> RunCommand(string path, CancellationToken cancellationToken)

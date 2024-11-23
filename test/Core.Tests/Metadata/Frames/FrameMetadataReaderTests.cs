@@ -14,7 +14,7 @@ public class FrameMetadataReaderTests
 	public async Task Test()
 	{
 		string path = new ResourcePaths().Video;
-		var extractor = new FrameMetadataReader(NullLogger<FrameMetadataReader>.Instance, new FrameMetadataParser(), new ExtraFrameCreator());
+		var extractor = new FrameMetadataReader(NullLogger<FrameMetadataReader>.Instance, new FrameMetadataParser());
 		FrameMetadata[] metadata = await extractor.ExtractMetadata(path, CancellationToken.None);
 
 		metadata.Should().HaveCount(300);
