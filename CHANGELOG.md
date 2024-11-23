@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/koryphaee/Refrase/compare/v1.2.0...v1.2.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* **analysis:** removed extra frame workaround ([1ac4305](https://github.com/koryphaee/Refrase/commit/1ac430581b1e5dcec925214092fab0b73c132f68))
+* **api:** added rejection of invalid videos ([5362afb](https://github.com/koryphaee/Refrase/commit/5362afb863efbe6f3575ef194002c04731892b15))
+
 # [1.2.0](https://github.com/koryphaee/Refrase/compare/v1.1.0...v1.2.0) (2024-11-20)
 
 
