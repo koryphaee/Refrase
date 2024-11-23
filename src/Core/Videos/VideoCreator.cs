@@ -16,7 +16,7 @@ public class VideoCreator(
 	{
 		await using IDbContextTransaction transaction = await context.Database.BeginTransactionAsync(cancellationToken);
 		Video video = await CreateVideo(request, cancellationToken);
-		await SaveFile(video.Id, request, cancellationToken);
+		MoveFile(video.Id, request, cancellationToken);
 		await transaction.CommitAsync(cancellationToken);
 		await analysisQueue.Enqueue(video.Id, cancellationToken);
 		return new CreateVideoResponse(video.Id);
@@ -37,10 +37,9 @@ public class VideoCreator(
 		return video;
 	}
 
-	private async Task SaveFile(VideoId id, CreateVideoRequest request, CancellationToken cancellationToken)
+	private void MoveFile(VideoId id, CreateVideoRequest request, CancellationToken cancellationToken)
 	{
 		string path = dataPaths.Video(id).Video;
-		await using FileStream destination = File.OpenWrite(path);
-		await request.Content.CopyToAsync(destination, cancellationToken);
+		File.Move(request.Path, path);
 	}
 }
