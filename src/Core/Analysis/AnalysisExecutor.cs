@@ -15,7 +15,7 @@ internal class AnalysisExecutor(
 	VideoImportCompleter videoImportCompleter,
 	FrameCache frameCache)
 {
-	public async Task Execute(VideoId videoId, CancellationToken cancellationToken)
+	public async Task Execute(long videoId, CancellationToken cancellationToken)
 	{
 		logger.LogInformation("Analyzing video {videoId}", videoId);
 		await videoMetadataImporter.Import(videoId, cancellationToken);

@@ -1,9 +1,7 @@
-﻿using Refrase.Model;
-
-namespace Refrase.Core.Frames;
+﻿namespace Refrase.Core.Frames;
 
 public record FrameInfo(
-	VideoId VideoId,
+	long VideoId,
 	int Index,
 	TimeSpan Timestamp,
 	ulong Hash);

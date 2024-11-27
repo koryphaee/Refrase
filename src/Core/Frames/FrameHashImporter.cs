@@ -17,7 +17,7 @@ public class FrameHashImporter(
 	ImageHasher imageHasher,
 	IOptions<RefraseOptions> options)
 {
-	public async Task Import(VideoId videoId, CancellationToken cancellationToken)
+	public async Task Import(long videoId, CancellationToken cancellationToken)
 	{
 		await using RefraseContext context = await contextFactory.CreateDbContextAsync(cancellationToken);
 		Video video = await context.Videos.SingleAsync(v => v.Id == videoId, cancellationToken);
@@ -48,7 +48,7 @@ public class FrameHashImporter(
 		await using RefraseContext context = await contextFactory.CreateDbContextAsync(cancellationToken);
 		context.Frames.AttachRange(frames);
 		Frame first = frames.First();
-		VideoId videoId = first.VideoId;
+		long videoId = first.VideoId;
 		string videoPath = dataPaths.Video(videoId).Video;
 		string framePattern = dataPaths.Video(videoId).Frames.Pattern;
 

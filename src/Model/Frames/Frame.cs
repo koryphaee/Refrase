@@ -4,9 +4,9 @@ namespace Refrase.Model.Frames;
 
 public class Frame
 {
-	public FrameId Id { get; set; }
+	public long Id { get; set; }
 
-	public VideoId VideoId { get; set; }
+	public long VideoId { get; set; }
 
 	public Video? Video { get; set; }
 

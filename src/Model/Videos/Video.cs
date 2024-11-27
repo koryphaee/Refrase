@@ -4,7 +4,7 @@ namespace Refrase.Model.Videos;
 
 public class Video
 {
-	public VideoId Id { get; set; }
+	public long Id { get; set; }
 
 	public required string Name { get; set; }
 

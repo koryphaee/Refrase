@@ -2,7 +2,7 @@ using Refrase.Model;
 
 namespace Refrase.Core.Paths;
 
-public class VideoPaths(string parent, VideoId id) : PathsBase(parent, id.ToString())
+public class VideoPaths(string parent, long id) : PathsBase(parent, id.ToString())
 {
 	public string Video => Nested("video");
 

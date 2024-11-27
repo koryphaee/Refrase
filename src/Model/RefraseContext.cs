@@ -9,13 +9,12 @@ namespace Refrase.Model;
 public class RefraseContext(DbContextOptions<RefraseContext> options) : DbContext(options)
 {
 	public DbSet<Video> Videos => Set<Video>();
-	
+
 	public DbSet<Frame> Frames => Set<Frame>();
 
 	protected override void OnConfiguring(DbContextOptionsBuilder builder)
 	{
 		builder
-			.ReplaceService<IRelationalAnnotationProvider, FixedSqliteAnnotationProvider>()
 			.UseSnakeCaseNamingConvention();
 	}
 
@@ -37,12 +36,6 @@ public class RefraseContext(DbContextOptions<RefraseContext> options) : DbContex
 		foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
 			foreach (IMutableForeignKey foreignKey in entityType.GetForeignKeys())
 				foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
-
-		// EF doesn't do this automatically because of the strongly typed IDs
-		foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
-			foreach (IMutableProperty property in entityType.GetProperties())
-				if (property.IsPrimaryKey())
-					property.ValueGenerated = ValueGenerated.OnAdd;
 
 		builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 	}

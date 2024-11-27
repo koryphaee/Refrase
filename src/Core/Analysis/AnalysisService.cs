@@ -23,7 +23,7 @@ internal class AnalysisService(
 
 		while (!stoppingToken.IsCancellationRequested)
 		{
-			VideoId videoId = await analysisQueue.Dequeue(stoppingToken);
+			long videoId = await analysisQueue.Dequeue(stoppingToken);
 
 			try
 			{
@@ -46,12 +46,12 @@ internal class AnalysisService(
 	private async Task EnqueueScheduled(CancellationToken cancellationToken)
 	{
 		await using RefraseContext context = await contextFactory.CreateDbContextAsync(cancellationToken);
-		VideoId[] videoIds = await context.Videos
+		long[] videoIds = await context.Videos
 			.Where(v => v.Status != AnalysisStatus.Completed)
 			.Select(v => v.Id)
 			.ToArrayAsync(cancellationToken);
 
-		foreach (VideoId videoId in videoIds)
+		foreach (long videoId in videoIds)
 		{
 			await analysisQueue.Enqueue(videoId, cancellationToken);
 		}

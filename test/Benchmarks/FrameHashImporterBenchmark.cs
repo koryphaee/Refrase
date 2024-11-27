@@ -24,7 +24,7 @@ public class FrameHashImporterBenchmark
 	{
 		options = InstanceFaker.FakeOptions();
 		dataPaths = InstanceFaker.FakeDataPaths(options);
-		File.Copy(new ResourcePaths().Video, dataPaths.Video(new VideoId(1)).Video, true);
+		File.Copy(new ResourcePaths().Video, dataPaths.Video(1).Video, true);
 	}
 
 	[GlobalSetup]
@@ -45,6 +45,6 @@ public class FrameHashImporterBenchmark
 	[Benchmark]
 	public async Task Serial()
 	{
-		await importer.Import(new VideoId(1), default);
+		await importer.Import(1, default);
 	}
 }

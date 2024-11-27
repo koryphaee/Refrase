@@ -19,7 +19,7 @@ public class FrameHashImporterTests
 	public async Task Test()
 	{
 		await using var database = await TestDatabase.Create();
-		VideoId videoId = await CreateData(database);
+		long videoId = await CreateData(database);
 
 		IOptions<RefraseOptions> options = InstanceFaker.FakeOptions();
 		DataPaths dataPaths = InstanceFaker.FakeDataPaths(options);
@@ -40,7 +40,7 @@ public class FrameHashImporterTests
 		video.Frames.Should().AllSatisfy(f => f.Hash.Should().NotBeNull());
 	}
 
-	private static async Task<VideoId> CreateData(IDbContextFactory<RefraseContext> contextFactory)
+	private static async Task<long> CreateData(IDbContextFactory<RefraseContext> contextFactory)
 	{
 		await using RefraseContext context = await contextFactory.CreateDbContextAsync();
 

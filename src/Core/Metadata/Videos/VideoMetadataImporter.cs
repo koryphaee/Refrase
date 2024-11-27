@@ -10,7 +10,7 @@ internal class VideoMetadataImporter(
 	IDbContextFactory<RefraseContext> contextFactory,
 	DataPaths dataPaths)
 {
-	public async Task Import(VideoId videoId, CancellationToken cancellationToken)
+	public async Task Import(long videoId, CancellationToken cancellationToken)
 	{
 		await using RefraseContext context = await contextFactory.CreateDbContextAsync(cancellationToken);
 		Video video = await context.Videos.SingleAsync(v => v.Id == videoId, cancellationToken);

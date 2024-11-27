@@ -10,10 +10,10 @@ public class FrameCache(
 	ILogger<FrameCache> logger)
 {
 	private readonly SemaphoreSlim semaphore = new(1);
-	private readonly Dictionary<VideoId, FrameInfo[]> cache = [];
+	private readonly Dictionary<long, FrameInfo[]> cache = [];
 	private bool loaded;
 
-	public async Task Update(VideoId videoId, CancellationToken cancellationToken)
+	public async Task Update(long videoId, CancellationToken cancellationToken)
 	{
 		await semaphore.WaitAsync(cancellationToken);
 
@@ -60,8 +60,8 @@ public class FrameCache(
 				.Where(f => f.Hash.HasValue)
 				.ToArrayAsync(cancellationToken);
 
-			ILookup<VideoId,FrameInfo> lookup = frames.ToLookup(f => f.VideoId, Convert);
-			foreach (IGrouping<VideoId,FrameInfo> grouping in lookup)
+			ILookup<long,FrameInfo> lookup = frames.ToLookup(f => f.VideoId, Convert);
+			foreach (IGrouping<long, FrameInfo> grouping in lookup)
 			{
 				cache[grouping.Key] = grouping.ToArray();
 			}

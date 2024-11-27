@@ -37,7 +37,7 @@ public class VideoCreator(
 		return video;
 	}
 
-	private void MoveFile(VideoId id, CreateVideoRequest request, CancellationToken cancellationToken)
+	private void MoveFile(long id, CreateVideoRequest request, CancellationToken cancellationToken)
 	{
 		string path = dataPaths.Video(id).Video;
 		File.Move(request.Path, path);
