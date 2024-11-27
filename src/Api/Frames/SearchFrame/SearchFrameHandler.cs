@@ -49,7 +49,7 @@ public class SearchFrameHandler(
 		if (match is null)
 			return null;
 
-		VideoDto video = new(match.Video.Name, match.Video.Category, match.Video.Url);
+		VideoDto video = new(match.Video.Id, match.Video.Name, match.Video.Category, match.Video.Url);
 		FrameDto frame = new(match.Frame.Index, match.Frame.Timestamp, match.Frame.Hash, match.Similarity);
 		return new MatchDto(video, frame);
 	}
