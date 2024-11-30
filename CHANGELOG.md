@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/koryphaee/Refrase/compare/v1.2.2...v1.2.3) (2024-11-30)
+
+
+### Bug Fixes
+
+* **api:** disabled anti forgery for frame search ([5e22bee](https://github.com/koryphaee/Refrase/commit/5e22beefb6be933b8bb2b1596408085847d10a9f))
+
 ## [1.2.2](https://github.com/koryphaee/Refrase/compare/v1.2.1...v1.2.2) (2024-11-30)
 
 
