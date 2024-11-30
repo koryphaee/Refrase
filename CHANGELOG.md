@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/koryphaee/Refrase/compare/v1.2.1...v1.2.2) (2024-11-30)
+
+
+### Bug Fixes
+
+* **api:** include video id in frame search result ([0c8a110](https://github.com/koryphaee/Refrase/commit/0c8a110cb8d91a516e6b41e73e49ca14d68f3380))
+
 ## [1.2.1](https://github.com/koryphaee/Refrase/compare/v1.2.0...v1.2.1) (2024-11-23)
 
 
