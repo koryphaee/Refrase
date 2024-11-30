@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/koryphaee/Refrase/compare/v1.2.3...v1.3.0) (2024-11-30)
+
+
+### Features
+
+* **api:** search by frame hash ([7a2a6a0](https://github.com/koryphaee/Refrase/commit/7a2a6a0766a71d85fd15cd1556c91cc07a55a43a))
+
 ## [1.2.3](https://github.com/koryphaee/Refrase/compare/v1.2.2...v1.2.3) (2024-11-30)
 
 
