@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/koryphaee/Refrase/compare/v1.3.0...v1.4.0) (2024-11-30)
+
+
+### Features
+
+* **api:** added index endpoint ([c776d53](https://github.com/koryphaee/Refrase/commit/c776d53e0bfe62d0fa61937a07aaf4704fe05aea))
+
 # [1.3.0](https://github.com/koryphaee/Refrase/compare/v1.2.3...v1.3.0) (2024-11-30)
 
 
