@@ -7,6 +7,8 @@ public sealed class AnalysisQueue : IDisposable
 {
 	private readonly Channel<long> channel = Channel.CreateUnbounded<long>();
 
+	public int Length => channel.Reader.Count;
+
 	public async Task Enqueue(long videoId, CancellationToken cancellationToken)
 	{
 		await channel.Writer.WriteAsync(videoId, cancellationToken);

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Refrase.Api.Frames.SearchFrame;
-using Refrase.Api.Videos;
+using Refrase.Api.Index;
 using Refrase.Api.Videos.IngestVideo;
 using System.Diagnostics;
 
@@ -14,6 +14,7 @@ public static class Extensions
 	public static void AddApi(this IServiceCollection services)
 	{
 		services
+			.AddScoped<GetIndexHandler>()
 			.AddScoped<IngestVideoHandler>()
 			.AddScoped<SearchFrameHandler>();
 	}
@@ -39,6 +40,8 @@ public static class Extensions
 	private static void MapEndpoints(this WebApplication app)
 	{
 		app.MapGet("/api/health", () => "OK");
+
+		app.MapGet("/api/index", (GetIndexHandler handler, CancellationToken cancellationToken) => handler.Handle(cancellationToken));
 
 		app.MapPost("/api/video", (IngestVideoHandler handler, [AsParameters] IngestVideoRequest request, CancellationToken cancellationToken) => handler.Handle(request, cancellationToken))
 			.WithFormOptions(multipartBodyLengthLimit: 10L * 1024 * 1024 * 1024)
