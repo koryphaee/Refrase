@@ -22,14 +22,19 @@ public class SearchFrameHandler(
 		try
 		{
 			ulong hash = await imageHasher.HashImage(file);
-			MatchDto? match = await GetMatch(hash, cancellationToken);
-			SearchFrameResponse response = new(match, hash);
-			return TypedResults.Ok(response);
+			return await Handle(hash, cancellationToken);
 		}
 		finally
 		{
 			File.Delete(file);
 		}
+	}
+
+	public async Task<Results<Ok<SearchFrameResponse>, BadRequest>> Handle(ulong hash, CancellationToken cancellationToken)
+	{
+		MatchDto? match = await GetMatch(hash, cancellationToken);
+		SearchFrameResponse response = new(match, hash);
+		return TypedResults.Ok(response);
 	}
 
 	private async Task<string> SaveFile(IFormFile frame, CancellationToken cancellationToken)

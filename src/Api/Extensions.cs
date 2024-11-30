@@ -45,6 +45,9 @@ public static class Extensions
 			.DisableAntiforgery();
 
 		app.MapPost("/api/frame/search", (SearchFrameHandler handler, IFormFile frame, CancellationToken cancellationToken) => handler.Handle(frame, cancellationToken))
-			.DisableAntiforgery();;
+			.DisableAntiforgery();
+
+		app.MapGet("/api/frame/search", (SearchFrameHandler handler, ulong hash, CancellationToken cancellationToken) => handler.Handle(hash, cancellationToken))
+			.DisableAntiforgery();
 	}
 }
