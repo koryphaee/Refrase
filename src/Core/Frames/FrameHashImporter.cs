@@ -7,6 +7,7 @@ using Refrase.Core.Paths;
 using Refrase.Model;
 using Refrase.Model.Frames;
 using Refrase.Model.Videos;
+using System.Diagnostics;
 
 namespace Refrase.Core.Frames;
 
@@ -51,11 +52,12 @@ public class FrameHashImporter(
 		long videoId = first.VideoId;
 		string videoPath = dataPaths.Video(videoId).Video;
 		string framePattern = dataPaths.Video(videoId).Frames.Pattern;
+		string offset = (int) first.Timestamp.TotalMilliseconds + "ms";
 
 		await Cli
 			.Wrap("ffmpeg")
 			.WithArguments(a => a
-				.Add("-ss").Add(first.Timestamp.ToString("c"))
+				.Add("-ss").Add(offset)
 				.Add("-i").Add(videoPath)
 				.Add("-start_number").Add(first.Index)
 				.Add("-vframes").Add(frames.Length)
@@ -67,6 +69,7 @@ public class FrameHashImporter(
 		{
 			string framePath = dataPaths.Video(videoId).Frames.Frame(frame.Index);
 			frame.Hash ??= await imageHasher.HashImage(framePath);
+			File.Delete(framePath);
 		}
 
 		await context.SaveChangesAsync(cancellationToken);
