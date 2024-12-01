@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/koryphaee/Refrase/compare/v1.4.0...v1.4.1) (2024-12-01)
+
+
+### Bug Fixes
+
+* **analysis:** remux to mp4 ([b1bf9f6](https://github.com/koryphaee/Refrase/commit/b1bf9f6a4d5b616978e41ae9c97b268dd08628bc))
+
 # [1.4.0](https://github.com/koryphaee/Refrase/compare/v1.3.0...v1.4.0) (2024-11-30)
 
 
