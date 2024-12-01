@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Refrase.Api.Frames.SearchFrame;
 using Refrase.Api.Index;
+using Refrase.Api.Videos;
 using Refrase.Api.Videos.IngestVideo;
 using System.Diagnostics;
 
@@ -15,6 +16,7 @@ public static class Extensions
 	{
 		services
 			.AddScoped<GetIndexHandler>()
+			.AddScoped<ListVideosHandler>()
 			.AddScoped<IngestVideoHandler>()
 			.AddScoped<SearchFrameHandler>();
 	}
@@ -42,6 +44,8 @@ public static class Extensions
 		app.MapGet("/api/health", () => "OK");
 
 		app.MapGet("/api/index", (GetIndexHandler handler, CancellationToken cancellationToken) => handler.Handle(cancellationToken));
+
+		app.MapGet("/api/video", (ListVideosHandler handler, CancellationToken cancellationToken) => handler.Handle(cancellationToken));
 
 		app.MapPost("/api/video", (IngestVideoHandler handler, [AsParameters] IngestVideoRequest request, CancellationToken cancellationToken) => handler.Handle(request, cancellationToken))
 			.WithFormOptions(multipartBodyLengthLimit: 10L * 1024 * 1024 * 1024)
