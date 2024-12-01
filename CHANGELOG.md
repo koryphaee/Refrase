@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/koryphaee/Refrase/compare/v1.4.1...v1.5.0) (2024-12-01)
+
+
+### Features
+
+* **api:** added endpoint to list all videos ([ada7932](https://github.com/koryphaee/Refrase/commit/ada7932478c14cd1facd0ad619c5ca9a688e1696))
+
 ## [1.4.1](https://github.com/koryphaee/Refrase/compare/v1.4.0...v1.4.1) (2024-12-01)
 
 
