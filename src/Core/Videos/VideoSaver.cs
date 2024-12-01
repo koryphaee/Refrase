@@ -20,7 +20,7 @@ public class VideoSaver(
 		{
 			string mp4 = dataPaths.Temp.VideoMp4(guid);
 			await Cli
-				.Wrap("ffprobe")
+				.Wrap("ffmpeg")
 				.WithArguments(a => a
 					.Add("-i").Add(input)
 					.Add("-sn")
