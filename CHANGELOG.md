@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/koryphaee/Refrase/compare/v1.5.1...v1.5.2) (2024-12-01)
+
+
+### Bug Fixes
+
+* **analysis:** fixed last chunk offset ([f8f77d7](https://github.com/koryphaee/Refrase/commit/f8f77d7195ed1790e0aa2c055678b39a3bcfe6be))
+
 ## [1.5.1](https://github.com/koryphaee/Refrase/compare/v1.5.0...v1.5.1) (2024-12-01)
 
 
