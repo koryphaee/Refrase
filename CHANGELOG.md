@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/koryphaee/Refrase/compare/v1.5.0...v1.5.1) (2024-12-01)
+
+
+### Bug Fixes
+
+* **analysis:** ffmpeg instead of ffprobe ([a4cf108](https://github.com/koryphaee/Refrase/commit/a4cf108720d55dd1483c251857c675a227dc18c9))
+
 # [1.5.0](https://github.com/koryphaee/Refrase/compare/v1.4.1...v1.5.0) (2024-12-01)
 
 
