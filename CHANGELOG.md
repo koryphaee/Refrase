@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/koryphaee/Refrase/compare/v1.5.3...v1.5.4) (2024-12-02)
+
+
+### Bug Fixes
+
+* **search:** used multithreading to improve speed ([8a8a3ba](https://github.com/koryphaee/Refrase/commit/8a8a3badef95f64aceedf93cd6b9e70e6b35a526))
+
 ## [1.5.3](https://github.com/koryphaee/Refrase/compare/v1.5.2...v1.5.3) (2024-12-02)
 
 
