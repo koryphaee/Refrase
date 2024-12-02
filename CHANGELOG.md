@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/koryphaee/Refrase/compare/v1.5.2...v1.5.3) (2024-12-02)
+
+
+### Bug Fixes
+
+* **analysis:** specified ffmpeg fps_mode option ([e13e5ce](https://github.com/koryphaee/Refrase/commit/e13e5ceb3b8bef1909bacae067acc84a4e78034f))
+
 ## [1.5.2](https://github.com/koryphaee/Refrase/compare/v1.5.1...v1.5.2) (2024-12-01)
 
 
