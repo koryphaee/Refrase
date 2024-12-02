@@ -3,8 +3,9 @@
 public enum AnalysisStatus
 {
 	Scheduled = 0,
-	MetadataImported = 1,
-	FramesCreated = 2,
-	FramesHashed = 3,
-	Completed = 4
+	ReEncoded = 1,
+	MetadataImported = 2,
+	FramesCreated = 3,
+	FramesHashed = 4,
+	Completed = 5
 }

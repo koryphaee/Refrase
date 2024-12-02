@@ -23,7 +23,7 @@ public class FrameHashImporterTests
 
 		IOptions<RefraseOptions> options = InstanceFaker.FakeOptions();
 		DataPaths dataPaths = InstanceFaker.FakeDataPaths(options);
-		File.Copy(new ResourcePaths().Video, dataPaths.Video(videoId).Video, true);
+		File.Copy(new ResourcePaths().Video, dataPaths.Video(videoId).ReEncodedVideo, true);
 
 		var imageHasher = new ImageHasher();
 		var importer = new FrameHashImporter(NullLogger<FrameHashImporter>.Instance, database, dataPaths, imageHasher, options);

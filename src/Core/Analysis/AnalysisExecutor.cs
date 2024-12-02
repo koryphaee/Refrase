@@ -9,6 +9,7 @@ namespace Refrase.Core.Analysis;
 
 internal class AnalysisExecutor(
 	ILogger<AnalysisExecutor> logger,
+	VideoReEncoder videoReEncoder,
 	VideoMetadataImporter videoMetadataImporter,
 	FrameMetadataImporter frameMetadataImporter,
 	FrameHashImporter frameHashImporter,
@@ -18,6 +19,7 @@ internal class AnalysisExecutor(
 	public async Task Execute(long videoId, CancellationToken cancellationToken)
 	{
 		logger.LogInformation("Analyzing video {videoId}", videoId);
+		await videoReEncoder.ReEncode(videoId, cancellationToken);
 		await videoMetadataImporter.Import(videoId, cancellationToken);
 		await frameMetadataImporter.Import(videoId, cancellationToken);
 		await frameHashImporter.Import(videoId, cancellationToken);

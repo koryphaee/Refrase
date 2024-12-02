@@ -29,7 +29,7 @@ public class VideoImportCompleterTests
 		EntityEntry<Video> entry = context.Add(video);
 		await context.SaveChangesAsync();
 
-		File.Copy(new ResourcePaths().Video, dataPaths.Video(video.Id).Video, true);
+		File.Copy(new ResourcePaths().Video, dataPaths.Video(video.Id).ReEncodedVideo, true);
 		for (int i = 0; i < 3; i++)
 		{
 			File.Copy(new ResourcePaths().Frame(i), dataPaths.Video(video.Id).Frames.Frame(i), true);

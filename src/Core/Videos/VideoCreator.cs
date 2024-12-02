@@ -39,7 +39,7 @@ public class VideoCreator(
 
 	private void MoveFile(long id, CreateVideoRequest request, CancellationToken cancellationToken)
 	{
-		string path = dataPaths.Video(id).Video;
+		string path = dataPaths.Video(id).OriginalVideo;
 		File.Move(request.Path, path);
 	}
 }

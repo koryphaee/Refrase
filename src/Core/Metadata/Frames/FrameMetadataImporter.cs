@@ -19,7 +19,7 @@ internal class FrameMetadataImporter(
 		if (video.Status != AnalysisStatus.MetadataImported)
 			return;
 
-		string path = dataPaths.Video(videoId).Video;
+		string path = dataPaths.Video(videoId).ReEncodedVideo;
 		FrameMetadata[] frames = await frameMetadataReader.ExtractMetadata(path, cancellationToken);
 
 		foreach (FrameMetadata metadata in frames)

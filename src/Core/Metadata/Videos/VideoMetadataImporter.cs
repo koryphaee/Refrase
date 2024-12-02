@@ -15,10 +15,10 @@ internal class VideoMetadataImporter(
 		await using RefraseContext context = await contextFactory.CreateDbContextAsync(cancellationToken);
 		Video video = await context.Videos.SingleAsync(v => v.Id == videoId, cancellationToken);
 
-		if (video.Status != AnalysisStatus.Scheduled)
+		if (video.Status != AnalysisStatus.ReEncoded)
 			return;
 
-		string path = dataPaths.Video(videoId).Video;
+		string path = dataPaths.Video(videoId).ReEncodedVideo;
 		VideoMetadata metadata = await videoMetadataReader.ExtractMetadata(path, cancellationToken);
 		video.Width = metadata.Width;
 		video.Height = metadata.Height;

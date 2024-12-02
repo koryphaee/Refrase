@@ -21,6 +21,7 @@
 
 @foreach (QueuedVideo video in queue)
 {
+    bool reEncoded = video.Status >= AnalysisStatus.ReEncoded;
     bool metadataImported = video.Status >= AnalysisStatus.MetadataImported;
     bool framesCreated = video.Status >= AnalysisStatus.FramesCreated;
     bool framesHashed = video.Status >= AnalysisStatus.FramesHashed;
@@ -38,6 +39,13 @@
         }
 
         <div>imported: @video.Imported.ToLocalTime().ToString("G")</div>
+
+        <label>
+            <input type="checkbox" checked="@reEncoded" readonly/>
+            <span>re-encoded</span>
+        </label>
+        <br/>
+
         <label>
             <input type="checkbox" checked="@metadataImported" readonly/>
             <span>metadata imported</span>

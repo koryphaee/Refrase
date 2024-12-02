@@ -24,7 +24,7 @@ public class FrameHashImporterBenchmark
 	{
 		options = InstanceFaker.FakeOptions();
 		dataPaths = InstanceFaker.FakeDataPaths(options);
-		File.Copy(new ResourcePaths().Video, dataPaths.Video(1).Video, true);
+		File.Copy(new ResourcePaths().Video, dataPaths.Video(1).ReEncodedVideo, true);
 	}
 
 	[GlobalSetup]

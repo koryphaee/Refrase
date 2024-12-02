@@ -31,7 +31,7 @@ public class VideoMetadataImporterTests
 		EntityEntry<Video> entry = context.Add(video);
 		await context.SaveChangesAsync();
 
-		File.Copy(new ResourcePaths().Video, dataPaths.Video(video.Id).Video, true);
+		File.Copy(new ResourcePaths().Video, dataPaths.Video(video.Id).ReEncodedVideo, true);
 
 		await importer.Import(video.Id, CancellationToken.None);
 

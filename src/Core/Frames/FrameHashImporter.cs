@@ -50,7 +50,7 @@ public class FrameHashImporter(
 		context.Frames.AttachRange(frames);
 		Frame first = frames.First();
 		long videoId = first.VideoId;
-		string videoPath = dataPaths.Video(videoId).Video;
+		string videoPath = dataPaths.Video(videoId).ReEncodedVideo;
 		string framePattern = dataPaths.Video(videoId).Frames.Pattern;
 		string offset = (int) first.Timestamp.TotalMilliseconds + "ms";
 

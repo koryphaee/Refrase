@@ -9,10 +9,9 @@ namespace Refrase.Api.Videos.IngestVideo;
 public class IngestVideoHandler(
 	RefraseContext context,
 	VideoCreator videoCreator,
-	VideoSaver videoSaver,
-	VideoValidator videoValidator)
+	VideoSaver videoSaver)
 {
-	public async Task<Results<Conflict, BadRequest, Ok<IngestVideoResponse>>> Handle(
+	public async Task<Results<Conflict, Ok<IngestVideoResponse>>> Handle(
 		IngestVideoRequest request, CancellationToken cancellationToken)
 	{
 		bool duplicate = await context.Videos.AnyAsync(v => v.Name == request.Name, cancellationToken);
@@ -22,10 +21,6 @@ public class IngestVideoHandler(
 
 		await using Stream stream = request.Video.OpenReadStream();
 		string path = await videoSaver.Save(stream, cancellationToken);
-		bool valid = await videoValidator.Validate(path, cancellationToken);
-
-		if (!valid)
-			return TypedResults.BadRequest();
 
 		try
 		{

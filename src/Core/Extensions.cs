@@ -53,7 +53,7 @@ public static class Extensions
 			.AddScoped<VideoCreator>()
 			.AddSingleton<VideoImportCompleter>()
 			.AddSingleton<VideoSaver>()
-			.AddSingleton<VideoValidator>();
+			.AddSingleton<VideoReEncoder>();
 
 		services
 			.AddSingleton<ErrorNotifier>();
