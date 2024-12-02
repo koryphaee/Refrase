@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/koryphaee/Refrase/compare/v1.5.4...v1.6.0) (2024-12-02)
+
+
+### Features
+
+* **analysis:** added re-encode step ([a193966](https://github.com/koryphaee/Refrase/commit/a193966fb7ae3c50c1f1e629535fed3a27b154bf))
+
 ## [1.5.4](https://github.com/koryphaee/Refrase/compare/v1.5.3...v1.5.4) (2024-12-02)
 
 
