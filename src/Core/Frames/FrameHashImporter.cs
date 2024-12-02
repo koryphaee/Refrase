@@ -62,7 +62,7 @@ public class FrameHashImporter(
 				.Add("-start_number").Add(first.Index)
 				.Add("-vframes").Add(frames.Length)
 				.Add("-fps_mode").Add("passthrough") // otherwise ffmpeg swallows a few frames at the end
-				.Add("-threads").Add(options.Value.FfmpegThreads)
+				.Add("-threads").Add(options.Value.FfmpegThreads ?? 0)
 				.Add(framePattern))
 			.Run(logger, cancellationToken);
 

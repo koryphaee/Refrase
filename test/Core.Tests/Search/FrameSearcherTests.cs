@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Refrase.Core.Frames;
 using Refrase.Core.Hashing;
@@ -19,7 +20,7 @@ public class FrameSearcherTests
 		var hashComparer = new HashComparer(NullLogger<HashComparer>.Instance);
 		await using TestDatabase database = await TestDatabase.Create();
 		var frameCache = new FrameCache(database, NullLogger<FrameCache>.Instance);
-		var frameSearcher = new FrameSearcher(NullLogger<FrameSearcher>.Instance, hashComparer, frameCache);
+		var frameSearcher = new FrameSearcher(NullLogger<FrameSearcher>.Instance, hashComparer, frameCache, new OptionsWrapper<RefraseOptions>(new RefraseOptions()));
 
 		var video = new Video
 		{

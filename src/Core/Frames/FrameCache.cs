@@ -33,14 +33,14 @@ public class FrameCache(
 		}
 	}
 
-	public async Task<FrameInfo[]> GetAll(CancellationToken cancellationToken)
+	public async Task<IEnumerable<FrameInfo[]>> GetAll(CancellationToken cancellationToken)
 	{
 		await semaphore.WaitAsync(cancellationToken);
 
 		try
 		{
 			await EnsureLoaded(cancellationToken);
-			return cache.SelectMany(f => f.Value).ToArray();
+			return cache.Values;
 		}
 		finally
 		{
@@ -60,7 +60,7 @@ public class FrameCache(
 				.Where(f => f.Hash.HasValue)
 				.ToArrayAsync(cancellationToken);
 
-			ILookup<long,FrameInfo> lookup = frames.ToLookup(f => f.VideoId, Convert);
+			ILookup<long, FrameInfo> lookup = frames.ToLookup(f => f.VideoId, Convert);
 			foreach (IGrouping<long, FrameInfo> grouping in lookup)
 			{
 				cache[grouping.Key] = grouping.ToArray();

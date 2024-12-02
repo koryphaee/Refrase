@@ -10,5 +10,7 @@ public class RefraseOptions
 
 	public string? PushoverToken { get; set; }
 
-	public int FfmpegThreads { get; set; }
+	public int? FfmpegThreads { get; set; }
+
+	public int? SearchThreads { get; set; }
 }

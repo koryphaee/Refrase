@@ -8,9 +8,7 @@ public class HashComparer(
 {
 	public int HammingDistance(ulong a, ulong b)
 	{
-		int distance = BitOperations.PopCount(a ^ b);
-		logger.LogTrace("Distance between {a} and {b} is {distance}", a, b, distance);
-		return distance;
+		return BitOperations.PopCount(a ^ b);
 	}
 
 	public double Similarity(ulong a, ulong b)
