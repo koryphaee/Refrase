@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/koryphaee/Refrase/compare/v1.6.0...v1.6.1) (2024-12-03)
+
+
+### Bug Fixes
+
+* **tests:** fixed tests ([a5f41e6](https://github.com/koryphaee/Refrase/commit/a5f41e62d0da6fc5be646bcf23a3f1b687193bbc))
+
 # [1.6.0](https://github.com/koryphaee/Refrase/compare/v1.5.4...v1.6.0) (2024-12-02)
 
 
