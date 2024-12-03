@@ -27,6 +27,7 @@ public class VideoMetadataImporterTests
 			Name = "test",
 			Category = "test",
 			Imported = DateTime.Now,
+			Status = AnalysisStatus.ReEncoded
 		};
 		EntityEntry<Video> entry = context.Add(video);
 		await context.SaveChangesAsync();
