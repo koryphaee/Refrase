@@ -2,17 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Refrase.Core.Metadata.Videos;
 using Refrase.Core.Paths;
 using Refrase.Model;
 using Refrase.Model.Videos;
 
 namespace Refrase.Core.Videos;
 
-public class VideoReEncoder(
+internal class VideoReEncoder(
 	ILogger<VideoReEncoder> logger,
 	IDbContextFactory<RefraseContext> contextFactory,
 	DataPaths dataPaths,
-	IOptionsSnapshot<RefraseOptions> options)
+	IOptionsSnapshot<RefraseOptions> options,
+	ReEncodingProgress progress,
+	VideoMetadataReader videoMetadataReader)
 {
 	public async Task ReEncode(long videoId, CancellationToken cancellationToken)
 	{
@@ -25,18 +28,37 @@ public class VideoReEncoder(
 		string input = dataPaths.Video(videoId).OriginalVideo;
 		string output = dataPaths.Video(videoId).ReEncodedVideo;
 
+		int? totalFrames = await TryGetTotalFrames(input, cancellationToken);
+		progress.Prepare(totalFrames);
+
 		await Cli.Wrap("ffmpeg")
 			.WithArguments(a => a
 				.Add("-i").Add(input)
 				.Add("-sn") // discard subtitles
 				.Add("-an") // discard audio
 				.AddThreadLimit(options)
+				.Add("-progress").Add("pipe:1")
+				.Add("-stats_period").Add("1s")
 				.Add(output))
+			.WithStandardOutputPipe(PipeTarget.ToDelegate(progress.Report))
 			.Run(logger, cancellationToken);
 
 		File.Delete(input);
 
 		video.Status = AnalysisStatus.ReEncoded;
 		await context.SaveChangesAsync(cancellationToken);
+	}
+
+	private async Task<int?> TryGetTotalFrames(string path, CancellationToken cancellationToken)
+	{
+		try
+		{
+			VideoMetadata metadata = await videoMetadataReader.ExtractMetadata(path, cancellationToken);
+			return metadata.FrameCount;
+		}
+		catch (RefraseException)
+		{
+			return null;
+		}
 	}
 }

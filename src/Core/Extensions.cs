@@ -14,6 +14,7 @@ using Refrase.Core.Reporting;
 using Refrase.Core.Search;
 using Refrase.Core.Videos;
 using System.Globalization;
+using System.Text;
 
 namespace Refrase.Core;
 
@@ -55,13 +56,14 @@ public static class Extensions
 			.AddScoped<VideoCreator>()
 			.AddSingleton<VideoImportCompleter>()
 			.AddSingleton<VideoSaver>()
-			.AddScoped<VideoReEncoder>();
+			.AddScoped<VideoReEncoder>()
+			.AddSingleton<ReEncodingProgress>();
 
 		services
 			.AddSingleton<ErrorNotifier>();
 	}
 
-	internal static async Task<BufferedCommandResult> Run(this Command command, ILogger logger, CancellationToken cancellationToken)
+	internal static async Task<BufferedCommandResult> RunBuffered(this Command command, ILogger logger, CancellationToken cancellationToken)
 	{
 		BufferedCommandResult result = await command
 			.WithValidation(CommandResultValidation.None)
@@ -74,6 +76,24 @@ public static class Extensions
 		}
 
 		logger.LogError("Command '{command}' failed exit code {code} after {time} and printed '{output}'", command, result.ExitCode, result.RunTime, result.StandardError);
+		throw new RefraseException($"Command {command} failed with exit code {result.ExitCode}");
+	}
+
+	internal static async Task Run(this Command command, ILogger logger, CancellationToken cancellationToken)
+	{
+		var standardError = new StringBuilder();
+		CommandResult result = await command
+			.WithValidation(CommandResultValidation.None)
+			.WithStandardErrorPipe(PipeTarget.ToStringBuilder(standardError))
+			.ExecuteAsync(cancellationToken);
+
+		if (result.IsSuccess)
+		{
+			logger.LogDebug("Command '{command}' finished successfully after {time}", command, result.RunTime);
+			return;
+		}
+
+		logger.LogError("Command '{command}' failed exit code {code} after {time} and printed '{output}'", command, result.ExitCode, result.RunTime, standardError);
 		throw new RefraseException($"Command {command} failed with exit code {result.ExitCode}");
 	}
 

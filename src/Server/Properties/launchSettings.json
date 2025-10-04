@@ -4,7 +4,6 @@
 		"http": {
 			"commandName": "Project",
 			"launchBrowser": true,
-			"launchUrl": "swagger",
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Development",
 				"ASPNETCORE_URLS": "http://localhost:5000"
@@ -16,7 +15,7 @@
 			"commandName": "Docker",
 			"containerName": "refrase",
 			"launchBrowser": true,
-			"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+			"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Development",
 				"ASPNETCORE_URLS": "http://+:80",

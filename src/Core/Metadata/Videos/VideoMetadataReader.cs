@@ -28,7 +28,7 @@ internal class VideoMetadataReader(
 				//.Add("-show_entries stream=width,height,r_frame_rate,nb_frames,duration")
 				.Add("-loglevel").Add("quiet")
 				.Add("-output_format").Add("json"))
-			.Run(logger, cancellationToken);
+			.RunBuffered(logger, cancellationToken);
 		return result.StandardOutput;
 	}
 

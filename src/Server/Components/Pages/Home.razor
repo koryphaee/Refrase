@@ -1,10 +1,12 @@
 ﻿@page "/"
 
 @using Microsoft.EntityFrameworkCore
+@using Refrase.Core.Videos
 @using Refrase.Model
 @using Refrase.Model.Videos
 
 @inject IDbContextFactory<RefraseContext> ContextFactory
+@inject ReEncodingProgress ReEncodingProgress
 
 <span>@DateTime.Now.ToString("G")</span>
 
@@ -44,6 +46,12 @@
             <input type="checkbox" checked="@reEncoded" readonly/>
             <span>re-encoded</span>
         </label>
+        @if (!reEncoded && @ReEncodingProgress.TotalFrames != null)
+        {
+            <span> - </span>
+            <progress style="width: 500px;" value="@ReEncodingProgress.CurrentFrame" max="@ReEncodingProgress.TotalFrames"></progress>
+            <span>@ReEncodingProgress.CurrentFrame / @ReEncodingProgress.TotalFrames</span>
+        }
         <br/>
 
         <label>

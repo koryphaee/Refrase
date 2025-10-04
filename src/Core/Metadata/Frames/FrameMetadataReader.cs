@@ -27,7 +27,7 @@ internal class FrameMetadataReader(
 				.Add("-show_entries").Add("frame=best_effort_timestamp_time")
 				.Add("-output_format").Add("json")
 				.Add("-i").Add(path))
-			.Run(logger, cancellationToken);
+			.RunBuffered(logger, cancellationToken);
 		return result.StandardOutput;
 	}
 
