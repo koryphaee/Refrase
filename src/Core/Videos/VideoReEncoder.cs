@@ -1,6 +1,7 @@
 ﻿using CliWrap;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Refrase.Core.Paths;
 using Refrase.Model;
 using Refrase.Model.Videos;
@@ -10,7 +11,8 @@ namespace Refrase.Core.Videos;
 public class VideoReEncoder(
 	ILogger<VideoReEncoder> logger,
 	IDbContextFactory<RefraseContext> contextFactory,
-	DataPaths dataPaths)
+	DataPaths dataPaths,
+	IOptions<RefraseOptions> options)
 {
 	public async Task ReEncode(long videoId, CancellationToken cancellationToken)
 	{
@@ -28,6 +30,7 @@ public class VideoReEncoder(
 				.Add("-i").Add(input)
 				.Add("-sn") // discard subtitles
 				.Add("-an") // discard audio
+				.AddThreadLimit(options)
 				.Add(output))
 			.Run(logger, cancellationToken);
 

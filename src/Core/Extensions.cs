@@ -1,7 +1,9 @@
 using CliWrap;
 using CliWrap.Buffered;
+using CliWrap.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Refrase.Core.Analysis;
 using Refrase.Core.Frames;
 using Refrase.Core.Hashing;
@@ -81,5 +83,12 @@ public static class Extensions
 		return T.TryParse(s, CultureInfo.InvariantCulture, out T result)
 			? result
 			: throw new RefraseException($"Invalid {name} '{s}'");
+	}
+
+	internal static ArgumentsBuilder AddThreadLimit(this ArgumentsBuilder arguments, IOptions<RefraseOptions> options)
+	{
+		return options.Value.FfmpegThreads is int threads and > 0
+			? arguments.Add("-threads").Add(threads)
+			: arguments;
 	}
 }
