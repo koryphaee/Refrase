@@ -1,3 +1,18 @@
+# [1.7.0](https://github.com/koryphaee/Refrase/compare/v1.6.1...v1.7.0) (2025-10-04)
+
+
+### Bug Fixes
+
+* **re-encoding:** respect ffmpeg thread limit ([0fa9f78](https://github.com/koryphaee/Refrase/commit/0fa9f782ce2db37daae468fe9ed55aa9d2d624f4))
+* **reporting:** report ASP.NET Core exception ([e4b9889](https://github.com/koryphaee/Refrase/commit/e4b98893277915bcc70bf592513a0ebc04945001))
+
+
+### Features
+
+* **docker:** added healthcheck ([9325b7a](https://github.com/koryphaee/Refrase/commit/9325b7ad91115ffec23ad7bce93a97411dacdca9))
+* **options:** options can be reloaded at runtime ([77f8b5e](https://github.com/koryphaee/Refrase/commit/77f8b5e943620e85aaba75f65af5754e91722b76))
+* **re-encode:** added progress bar ([551a434](https://github.com/koryphaee/Refrase/commit/551a4342758b4f4fa1b0538354232ee03f68a85c))
+
 ## [1.6.1](https://github.com/koryphaee/Refrase/compare/v1.6.0...v1.6.1) (2024-12-03)
 
 
