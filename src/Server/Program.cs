@@ -11,6 +11,7 @@ builder.Services.AddApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRazorComponents();
+builder.Services.AddExceptionHandler<ReportingExceptionHandler>();
 builder.Services.Configure<RefraseOptions>(builder.Configuration.GetSection(RefraseOptions.Section));
 
 builder.WebHost.ConfigureKestrel(k => k.Limits.MaxRequestBodySize = null);
