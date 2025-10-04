@@ -16,7 +16,7 @@ public class FrameHashImporter(
 	IDbContextFactory<RefraseContext> contextFactory,
 	DataPaths dataPaths,
 	ImageHasher imageHasher,
-	IOptions<RefraseOptions> options)
+	IOptionsSnapshot<RefraseOptions> options)
 {
 	public async Task Import(long videoId, CancellationToken cancellationToken)
 	{

@@ -24,11 +24,11 @@ public static class Extensions
 		services
 			.AddHostedService<AnalysisService>()
 			.AddSingleton<AnalysisQueue>()
-			.AddSingleton<AnalysisExecutor>();
+			.AddScoped<AnalysisExecutor>();
 
 		services
 			.AddSingleton<FrameCache>()
-			.AddSingleton<FrameHashImporter>();
+			.AddScoped<FrameHashImporter>();
 
 		services
 			.AddSingleton<HashComparer>()
@@ -55,7 +55,7 @@ public static class Extensions
 			.AddScoped<VideoCreator>()
 			.AddSingleton<VideoImportCompleter>()
 			.AddSingleton<VideoSaver>()
-			.AddSingleton<VideoReEncoder>();
+			.AddScoped<VideoReEncoder>();
 
 		services
 			.AddSingleton<ErrorNotifier>();
@@ -85,7 +85,7 @@ public static class Extensions
 			: throw new RefraseException($"Invalid {name} '{s}'");
 	}
 
-	internal static ArgumentsBuilder AddThreadLimit(this ArgumentsBuilder arguments, IOptions<RefraseOptions> options)
+	internal static ArgumentsBuilder AddThreadLimit(this ArgumentsBuilder arguments, IOptionsSnapshot<RefraseOptions> options)
 	{
 		return options.Value.FfmpegThreads is int threads and > 0
 			? arguments.Add("-threads").Add(threads)

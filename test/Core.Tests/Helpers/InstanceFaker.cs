@@ -5,13 +5,24 @@ namespace Refrase.Core.Tests.Helpers;
 
 public static class InstanceFaker
 {
-	public static IOptions<RefraseOptions> FakeOptions()
+	private class FakeOptionsSnapshot<T>(T value) : IOptionsSnapshot<T>
+		where T : class
+	{
+		public T Value { get; } = value;
+
+		public T Get(string? name)
+		{
+			return Value;
+		}
+	}
+
+	public static IOptionsSnapshot<RefraseOptions> FakeOptions()
 	{
 		var refraseOptions = new RefraseOptions
 		{
 			DataDirectory = "."
 		};
-		return new OptionsWrapper<RefraseOptions>(refraseOptions);
+		return new FakeOptionsSnapshot<RefraseOptions>(refraseOptions);
 	}
 
 	public static DataPaths FakeDataPaths(IOptions<RefraseOptions>? options = null)

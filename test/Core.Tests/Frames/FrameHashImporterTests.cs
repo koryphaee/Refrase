@@ -21,14 +21,14 @@ public class FrameHashImporterTests
 		await using var database = await TestDatabase.Create();
 		long videoId = await CreateData(database);
 
-		IOptions<RefraseOptions> options = InstanceFaker.FakeOptions();
+		IOptionsSnapshot<RefraseOptions> options = InstanceFaker.FakeOptions();
 		DataPaths dataPaths = InstanceFaker.FakeDataPaths(options);
 		File.Copy(new ResourcePaths().Video, dataPaths.Video(videoId).ReEncodedVideo, true);
 
 		var imageHasher = new ImageHasher();
 		var importer = new FrameHashImporter(NullLogger<FrameHashImporter>.Instance, database, dataPaths, imageHasher, options);
 
-		await importer.Import(videoId, default);
+		await importer.Import(videoId, CancellationToken.None);
 
 		await using RefraseContext context = database.CreateDbContext();
 

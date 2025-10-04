@@ -54,7 +54,7 @@ public class FrameSearcherTests
 		context.Add(video);
 		await context.SaveChangesAsync();
 
-		Match? match = await frameSearcher.GetMatch(context, 12345, default);
+		Match? match = await frameSearcher.GetMatch(context, 12345, CancellationToken.None);
 
 		match.Should().NotBeNull();
 		match!.Similarity.Should().Be(0.984375);

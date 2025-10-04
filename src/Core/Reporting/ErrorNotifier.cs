@@ -7,18 +7,20 @@ using Microsoft.Extensions.Options;
 namespace Refrase.Core.Reporting;
 
 public class ErrorNotifier(
-	IOptions<RefraseOptions> options,
+	IOptionsMonitor<RefraseOptions> options,
 	ILogger<ErrorNotifier> logger)
 {
     public async Task Notify(Exception exception, CancellationToken cancellationToken)
     {
-        if (options.Value.PushoverToken is not string token)
+	    RefraseOptions value = options.CurrentValue;
+
+	    if (value.PushoverToken is not string token)
         {
             logger.LogWarning("Unable to send notification because no token was provided");
             return;
         }
 
-        if (options.Value.PushoverUser is not string user)
+        if (value.PushoverUser is not string user)
         {
             logger.LogWarning("Unable to send notification because no user was provided");
             return;

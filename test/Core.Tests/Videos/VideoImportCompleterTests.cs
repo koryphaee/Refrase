@@ -36,7 +36,7 @@ public class VideoImportCompleterTests
 		}
 		await File.WriteAllTextAsync(dataPaths.Video(video.Id).FrameList, "frame list");
 
-		await completer.Complete(video.Id, default);
+		await completer.Complete(video.Id, CancellationToken.None);
 
 		await entry.ReloadAsync();
 		video.Status.Should().Be(AnalysisStatus.Completed);

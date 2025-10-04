@@ -12,7 +12,7 @@ public class VideoReEncoder(
 	ILogger<VideoReEncoder> logger,
 	IDbContextFactory<RefraseContext> contextFactory,
 	DataPaths dataPaths,
-	IOptions<RefraseOptions> options)
+	IOptionsSnapshot<RefraseOptions> options)
 {
 	public async Task ReEncode(long videoId, CancellationToken cancellationToken)
 	{

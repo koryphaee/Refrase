@@ -15,7 +15,7 @@ namespace Refrase.Benchmarks;
 [InProcess]
 public class FrameHashImporterBenchmark
 {
-	private readonly IOptions<RefraseOptions> options;
+	private readonly IOptionsSnapshot<RefraseOptions> options;
 	private readonly DataPaths dataPaths;
 	private TestDatabase database = null!;
 	private FrameHashImporter importer = null!;
@@ -45,6 +45,6 @@ public class FrameHashImporterBenchmark
 	[Benchmark]
 	public async Task Serial()
 	{
-		await importer.Import(1, default);
+		await importer.Import(1, CancellationToken.None);
 	}
 }
