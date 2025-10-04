@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-noble AS base
 EXPOSE 80
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg curl
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -12,4 +12,5 @@ WORKDIR /app
 COPY --from=build /app/publish .
 ENV Refrase__DataDirectory=/data
 ENV AspNetCore_Urls=http://+:80
+HEALTHCHECK CMD curl -f http://localhost
 ENTRYPOINT exec setpriv --reuid=${PUID} --regid=${PGID} --clear-groups dotnet Refrase.Server.dll
